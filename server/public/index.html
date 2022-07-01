@@ -4,14 +4,24 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
         <script src="./scripts/client.js" charset="UTF-8" async></script>
         <link href="./styles/style.css" rel="stylesheet" />
         <title>Weekend To Do SQL List</title>
     </head>
     <body>
-        <main>
+        <header>
             <h1>Hello World</h1>
+        </header>
+        <main>
+            <table>
+                <tr>
+                    <td id="task"></td>
+                    <td><button id="completeButton"></button></td>
+                    <td><button id="deleteButton"></button></td>
+                </tr>
+            </table>
+            <ul id="to-do-list"></ul>
         </main>
     </body>
 </html>
