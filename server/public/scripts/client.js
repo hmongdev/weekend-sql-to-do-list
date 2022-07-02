@@ -14,9 +14,9 @@ function addClickHandlers() {
     //POST task
     $('#addTask').on('click', addTask);
     //DELETE task
-    $('#task').on('click', '.delete', deleteTask);
+    $('#taskList').on('click', '.delete', deleteTask);
     //PUT task
-    $('#task').on('click', '.complete', completeTask);
+    // $('#task').on('click', '.complete', completeTask);
 }
 
 // GET
@@ -102,25 +102,25 @@ function deleteTask() {
 }
 
 // PUT
-function completeTask() {
-    // 6. declare taskId = 'false'
-    let taskId = $(this).data('id');
+// function completeTask() {
+//     // 6. declare taskId = 'false'
+//     let taskId = $(this).data('id');
 
-    // 8. PUT AJAX
-    $.ajax({
-        method: 'PUT',
-        url: `/tasks/${taskId}`,
-    })
-        .then(function (tasks) {
-            console.log(`This task's id is ${tasks}`);
-            //retrieve tasks
-            refreshTasks();
-        })
-        .catch(function (error) {
-            //alert user error
-            alert('ERROR in completeTask:', error);
-        });
-}
+//     // 8. PUT AJAX
+//     $.ajax({
+//         method: 'PUT',
+//         url: `/tasks/${taskId}`,
+//     })
+//         .then(function (tasks) {
+//             console.log(`This task's id is ${tasks}`);
+//             //retrieve tasks
+//             refreshTasks();
+//         })
+//         .catch(function (error) {
+//             //alert user error
+//             alert('ERROR in completeTask:', error);
+//         });
+// }
 
 // CLEAR
 function clearInputs() {
