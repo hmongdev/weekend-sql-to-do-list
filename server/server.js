@@ -1,12 +1,12 @@
 //----------------------Boiler Plate Stuff-----------------------
 const express = require('express');
 const bodyParser = require('body-parser');
-const booksRouter = require('./routes/book.router.js');
+const taskRouter = require('./routes/task.router');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/books', booksRouter);
+app.use('/tasks', taskRouter);
 
 // Serve back static files by default
 app.use(express.static('server/public'));
