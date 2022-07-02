@@ -1,14 +1,12 @@
-table,
-td,
-thead,
-tbody,
-th,
-tr {
+html {
     text-align: center;
 }
 
+body {
+    font-family: 'Muli', sans-serif;
+}
+
 #tasks {
-    font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
@@ -19,12 +17,7 @@ tr {
     padding: 8px;
 }
 
-#tasks tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-#tasks tr:hover {
-    background-color: #ddd;
+#tasks tr {
 }
 
 #tasks th {
@@ -32,4 +25,12 @@ tr {
     padding-bottom: 12px;
     background-color: #04aa6d;
     color: white;
+}
+
+.complete {
+    background-color: lightgreen;
+}
+
+.incomplete {
+    background-color: white;
 }

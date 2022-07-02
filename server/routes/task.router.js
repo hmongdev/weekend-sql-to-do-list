@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
@@ -33,26 +34,6 @@ router.post('/', (req, res) => {
         });
 });
 
-// TODO - PUT
-// router.put('/:id', (req, res) => {
-//     let TaskId = req.params.id;
-
-//     // declare queryText
-//     let queryText = `UPDATE "Tasks" SET "isRead" = true WHERE id = $1;`;
-
-//     //send => database
-//     pool.query(queryText, [TaskId])
-//         .then((result) => {
-//             //.rows just sends the rows from database
-//             res.send(result.rows);
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             //error status code
-//             res.sendStatus(500);
-//         });
-// });
-
 // DELETE
 router.delete('/:id', (req, res) => {
     let taskId = req.params.id;
@@ -66,6 +47,27 @@ router.delete('/:id', (req, res) => {
         .catch((error) => {
             console.log(`Error DELETEing with query ${queryText}`, error);
             res.sendStatus(500); // 500 is SERVER ERROR
+        });
+});
+
+// PUT
+router.put('/:id', (req, res) => {
+    let taskId = req.params.id;
+    let task = req.body;
+    console.log(`this is the task:`, task);
+    // declare queryText
+    let queryText = `UPDATE "tasks" 
+    SET "completed" = true
+    WHERE "id" = $1;`;
+    //ROUTER => SQL
+    pool.query(queryText, [taskId])
+        .then((tasks) => {
+            res.send(tasks.rows);
+        })
+        .catch((err) => {
+            console.log(err);
+            //error status code
+            res.sendStatus(500);
         });
 });
 

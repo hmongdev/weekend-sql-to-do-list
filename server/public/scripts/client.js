@@ -14,9 +14,9 @@ function addClickHandlers() {
     //POST task
     $('#addTask').on('click', addTask);
     //DELETE task
-    $('#taskList').on('click', '.delete', deleteTask);
+    $('tbody').on('click', '.delete', deleteTask);
     //PUT task
-    // $('#task').on('click', '.complete', completeTask);
+    $('tbody').on('click', '.complete', completeTask);
 }
 
 // GET
@@ -37,19 +37,22 @@ function refreshTasks() {
 
 // DOM
 function renderTasks(tasks) {
+    let checkMark = $(this).data('done');
     //empty the table
-    $('#taskList').empty();
+    $('tbody').empty();
+
     //loop through array of objects and render each object
     for (let i = 0; i < tasks.length; i += 1) {
         let task = tasks[i];
         // For each task, append a new row to our table
-        $('#taskList').append(`
-        <tr>
+        $('tbody').append(`
+        <tr class="task-container">
         <td>${task.task}</td>
         <td>${task.completed}
             <button
-                data-id=${task.id}
-                class="complete"> ❌ 
+                data-id="${task.id}"
+                data-done="${task.completed}"
+                class="complete">❌
             </button>
         </td>
         <td>
@@ -66,22 +69,31 @@ function renderTasks(tasks) {
 
 //POST
 function addTask() {
-    //SEND TO SERVER
-    $.ajax({
-        type: 'POST',
-        url: '/tasks',
-        data: {
-            task: $('#task').val(),
-        },
-    })
-        .then(function (task) {
-            console.log('Received task from server:', task);
-            refreshTasks();
+    //create object
+    let task = {
+        task: $('#task').val(),
+    };
+    //check if task is empty
+    if (!task.task) {
+        alert(`Please enter a task!`);
+    } else {
+        //SEND TO SERVER
+        $.ajax({
+            type: 'POST',
+            url: '/tasks',
+            data: task,
         })
-        .catch(function (error) {
-            console.log('Error in POST', error);
-            alert('Unable to add task at this time. Please try again later.');
-        });
+            .then(function (task) {
+                console.log('Received task from server:', task);
+                refreshTasks();
+            })
+            .catch(function (error) {
+                console.log('Error in POST', error);
+                alert(
+                    'Unable to add task at this time. Please try again later.'
+                );
+            });
+    }
 }
 
 // DELETE
@@ -102,25 +114,21 @@ function deleteTask() {
 }
 
 // PUT
-// function completeTask() {
-//     // 6. declare taskId = 'false'
-//     let taskId = $(this).data('id');
-
-//     // 8. PUT AJAX
-//     $.ajax({
-//         method: 'PUT',
-//         url: `/tasks/${taskId}`,
-//     })
-//         .then(function (tasks) {
-//             console.log(`This task's id is ${tasks}`);
-//             //retrieve tasks
-//             refreshTasks();
-//         })
-//         .catch(function (error) {
-//             //alert user error
-//             alert('ERROR in completeTask:', error);
-//         });
-// }
+function completeTask() {
+    let taskId = $(this).data('id');
+    $.ajax({
+        method: 'PUT',
+        url: `/tasks/${taskId}`,
+    })
+        .then(function (tasks) {
+            console.log(`Second task's id:`, tasks);
+            refreshTasks();
+        })
+        .catch(function (error) {
+            //alert user error
+            alert('ERROR in completeTask:', error);
+        });
+}
 
 // CLEAR
 function clearInputs() {
