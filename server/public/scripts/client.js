@@ -16,7 +16,9 @@ function addClickHandlers() {
     //DELETE task
     $('tbody').on('click', '.delete', deleteTask);
     //PUT task
-    $('tbody').on('click', '.check', completeTask);
+    $('tbody').on('click', '.check', checkTask);
+    //PUT task
+    // $('tbody').on('click', '.uncheck', uncheckTask);
 }
 
 // GET
@@ -44,13 +46,18 @@ function renderTasks(tasks) {
         let task = tasks[i];
         // For each task, append a new row to our table
         $('tbody').append(`
-        <tr class="status" data-status="${task.completed}">
+        <tr class="status" data-status=${task.completed}>
         <td>${task.task}</td>
-        <td>${task.completed}
+        <td>
             <button
                 data-id="${task.id}"
-                data-done="${task.completed}"
-                class="check">❌
+                data-status=${task.completed}
+                class="check">✅
+            </button>
+            <button
+                data-id="${task.id}"
+                data-status=${task.completed}
+                class="uncheck" disabled>❌
             </button>
         </td>
         <td>
@@ -112,11 +119,13 @@ function deleteTask() {
 }
 
 // PUT
-function completeTask() {
+function checkTask() {
     let taskId = $(this).data('id');
+    // let status = $(this).data('status');
     $.ajax({
         method: 'PUT',
         url: `/tasks/${taskId}`,
+        // data: { status: status },
     })
         .then(function (tasks) {
             console.log(`Second task's id:`, tasks);
@@ -124,7 +133,7 @@ function completeTask() {
         })
         .catch(function (error) {
             //alert user error
-            alert('ERROR in completeTask:', error);
+            alert('ERROR in checkTask:', error);
         });
 }
 

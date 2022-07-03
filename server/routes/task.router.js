@@ -53,10 +53,20 @@ router.delete('/:id', (req, res) => {
 // PUT
 router.put('/:id', (req, res) => {
     let taskId = req.params.id;
-    // declare queryText
-    let queryText = `UPDATE "tasks" 
-    SET "completed" = true
-    WHERE "id" = $1;`;
+    // let status = req.body.completed;
+    let queryText;
+    //if statement
+    // if (status) {
+    //     queryText = `UPDATE "tasks"
+    //     SET "completed" = false
+    //     WHERE "id" = $1;`;
+    // } else if (!status) {
+    //     queryText = `UPDATE "tasks"
+    //     SET "completed" = true
+    //     WHERE "id" = $1;`;
+    // }
+    queryText = `UPDATE "tasks" SET "completed" = true WHERE "id" = $1;`;
+
     //ROUTER => SQL
     pool.query(queryText, [taskId])
         .then((tasks) => {
