@@ -16,7 +16,7 @@ function addClickHandlers() {
     //DELETE task
     $('tbody').on('click', '.delete', deleteTask);
     //PUT task
-    $('tbody').on('click', '.complete', completeTask);
+    $('tbody').on('click', '.check', completeTask);
 }
 
 // GET
@@ -50,7 +50,7 @@ function renderTasks(tasks) {
             <button
                 data-id="${task.id}"
                 data-done="${task.completed}"
-                class="complete">❌
+                class="check">❌
             </button>
         </td>
         <td>
