@@ -16,7 +16,7 @@ function addClickHandlers() {
     //DELETE task
     $('tbody').on('click', '.delete', deleteTask);
     //PUT task
-    $('tbody').on('click', '.status', completeTask);
+    $('tbody').on('click', '.complete', completeTask);
 }
 
 // GET
@@ -44,23 +44,23 @@ function renderTasks(tasks) {
         let task = tasks[i];
         // For each task, append a new row to our table
         $('tbody').append(`
-            <tr class="status" data-status="${task.completed}">
-            <td>${task.task}</td>
-            <td>
-                <button
-                    data-id="${task.id}"
-                    data-done="${task.completed}"
-                    class="status">❌
-                </button>
-            </td>
-            <td>
-                <button
-                    data-id=${task.id}
-                    class="delete"
-                >Delete</button>
-            </td>
-            </tr>
-            `);
+        <tr class="status" data-status="${task.completed}">
+        <td>${task.task}</td>
+        <td>${task.completed}
+            <button
+                data-id="${task.id}"
+                data-done="${task.completed}"
+                class="complete">❌
+            </button>
+        </td>
+        <td>
+            <button
+                data-id=${task.id}
+                class="delete"
+            >Delete</button>
+        </td>
+        </tr>
+        `);
     }
     clearInputs();
 }
@@ -114,11 +114,9 @@ function deleteTask() {
 // PUT
 function completeTask() {
     let taskId = $(this).data('id');
-    console.log(`Task Id is:`, taskId);
     $.ajax({
         method: 'PUT',
         url: `/tasks/${taskId}`,
-        data: {status: task.completed}
     })
         .then(function (tasks) {
             console.log(`Second task's id:`, tasks);
