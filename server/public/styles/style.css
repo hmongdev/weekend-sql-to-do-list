@@ -1,8 +1,6 @@
 html {
     text-align: center;
-}
-
-body {
+    background-color: #e6e6e6;
     font-family: 'Muli', sans-serif;
 }
 
@@ -29,8 +27,10 @@ body {
 
 .status[data-status='true'] {
     background-color: lightgreen;
+    color: green;
 }
 
 .status[data-status='false'] {
     background-color: white;
+    color: red;
 }
