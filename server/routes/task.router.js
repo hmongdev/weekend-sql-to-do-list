@@ -53,8 +53,6 @@ router.delete('/:id', (req, res) => {
 // PUT
 router.put('/:id', (req, res) => {
     let taskId = req.params.id;
-    let task = req.body;
-    console.log(`this is the task:`, task);
     // declare queryText
     let queryText = `UPDATE "tasks" 
     SET "completed" = true
@@ -62,6 +60,7 @@ router.put('/:id', (req, res) => {
     //ROUTER => SQL
     pool.query(queryText, [taskId])
         .then((tasks) => {
+            console.log(`It worked!`);
             res.send(tasks.rows);
         })
         .catch((err) => {

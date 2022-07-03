@@ -27,10 +27,10 @@ body {
     color: white;
 }
 
-.complete {
+.status[data-status='true'] {
     background-color: lightgreen;
 }
 
-.incomplete {
+.status[data-status='false'] {
     background-color: white;
 }
